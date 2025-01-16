@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 import Square from './components/Square'
-import {TURNS, WINNER_COMBINATIONS} from './constants'
+import {TURNS, WINNER_COMBINATIONS} from './constants/constants'
+import WinnerModal from './components/WinnerModal'
 
 function App() {
   //States
@@ -83,28 +84,7 @@ function App() {
         {TURNS.O}
       </Square>
     </section>
-    {
-      winner !== null && (
-        <section className="winner">
-        <div className="text">
-          <h2>
-            {
-              winner == false ? 'Draw' : `Ganó:`
-            }
-            </h2>
-            <header className="win">
-              {winner && <Square>{winner}</Square>}
-            </header>
-            <footer>
-              <button onClick={resetGame}>
-                Play again!
-              </button>
-            </footer>
-        </div>
-        </section>
-      )
-    }
-    
+    <WinnerModal winner={winner} resetGame={resetGame} />
     </main>
   )
 }
