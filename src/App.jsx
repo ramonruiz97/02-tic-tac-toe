@@ -5,9 +5,11 @@ import {TURNS, WINNER_COMBINATIONS} from './constants/constants'
 import WinnerModal from './components/WinnerModal'
 
 function App() {
+  //Note than in each render this is going to be executed
   //States
   const [winner, setWinner] = useState(null) 
   const [board, setBoard] = useState( () =>{
+    //Here only one time... read from localStorage is slow
     const boardFromStorage = window.localStorage.getItem('board')
     return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null) 
    }
@@ -56,7 +58,6 @@ function App() {
 
 
     const newwinner = checkWinner(newBoard)
-    console.log(newwinner)
     if (newwinner) {
       setWinner(newwinner)
     } else if (!newBoard.includes(null)) {
