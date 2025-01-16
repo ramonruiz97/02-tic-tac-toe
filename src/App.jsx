@@ -1,45 +1,14 @@
 import { useState } from 'react'
 import './App.css'
-
-const TURNS = {
-  X : 'x',
-  O : 'o',
-}
-
-const WINNER_COMBINATIONS = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-]
-
-const Square = ({children, isSelected, updateBoard, index}) => {
-  //Basandonos en el estado del padre (turn), 
-  //cambiamos la visualizacion del estado hijo
-  const className = `square ${isSelected ? 'is-selected' : ''}`
-  console.log(isSelected)
-
-  const handleClick = () => {
-    updateBoard(index)
-  }
-  return (<div className={className} onClick={handleClick}>
-    {children}
-  </div>
-  )
-}
-
+import Square from './components/Square'
+import {TURNS, WINNER_COMBINATIONS} from './constants'
 
 function App() {
-  //cada vez que cambie el estado de board se va a renderizar el componente
+  //States
   const [winner, setWinner] = useState(null) 
-  //false there is no winner, true there is a winner
   const [board, setBoard] = useState(
     Array(9).fill(null)
-   ) //initial state only renderized first time
+   ) 
    const [turn, setTurn] = useState(TURNS.X)
   
   //Function to check winner
