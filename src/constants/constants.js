@@ -1,6 +1,6 @@
 export const TURNS = {
-  X : 'x',
-  O : 'o',
+  X : '\u274C',
+  O : "\u26AA",
 }
 
 export const WINNER_COMBINATIONS = [

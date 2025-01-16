@@ -83,7 +83,7 @@ body {
 
 .square.is-selected {
   color: #fff;
-  background: red;
+  background: gray;
 }
 
 .winner {
