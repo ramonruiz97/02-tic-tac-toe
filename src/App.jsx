@@ -21,6 +21,7 @@ const Square = ({children, isSelected, updateBoard, index}) => {
   //Basandonos en el estado del padre (turn), 
   //cambiamos la visualizacion del estado hijo
   const className = `square ${isSelected ? 'is-selected' : ''}`
+  console.log(isSelected)
 
   const handleClick = () => {
     updateBoard(index)
@@ -45,17 +46,24 @@ function App() {
   const checkWinner = (Board) => {
     for (const combination of WINNER_COMBINATIONS) {
       const [a, b, c] = combination
-      console.log(Board)
+      console.log(Board[a], Board[b], Board[c])
       if (Board[a] && 
         Board[a] === Board[b] 
         && Board[a] === Board[c]) {
         return Board[a]
       }
-      else{
-        return null
-      }
     }
+    return null
     
+  }
+
+  const resetGame = () => {
+    const newBoard = Array(9).fill(null)
+    setBoard(newBoard)
+    const newwinner = null
+    setWinner(newwinner)
+    const newturn = TURNS.X
+    setTurn(newturn)
   }
   
   //setBoard changes the state of board
@@ -74,12 +82,15 @@ function App() {
     console.log(newwinner)
     if (newwinner) {
       setWinner(newwinner)
+    } else if (!newBoard.includes(null)) {
+      setWinner(false)
     }
   }
 
   return (
     <main className="board">
     <h1> Tic tac Toe</h1>
+    <button onClick={resetGame}>Restart game</button>
     <section className="game">
       {
         board.map((_, index) => {
@@ -102,8 +113,29 @@ function App() {
       <Square isSelected={turn === TURNS.O}>
         {TURNS.O}
       </Square>
-      
     </section>
+    {
+      winner !== null && (
+        <section className="winner">
+        <div className="text">
+          <h2>
+            {
+              winner == false ? 'Draw' : `Ganó:`
+            }
+            </h2>
+            <header className="win">
+              {winner && <Square>{winner}</Square>}
+            </header>
+            <footer>
+              <button onClick={resetGame}>
+                Play again!
+              </button>
+            </footer>
+        </div>
+        </section>
+      )
+    }
+    
     </main>
   )
 }
